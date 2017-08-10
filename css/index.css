@@ -1,0 +1,269 @@
+body,div,ul,ol,dt,dd,dl,li,h1,h2,h3,h4,h5,h6,form,input,select,textarea,p,img,a,span,strong,*{ padding:0; margin:0;}
+body{ font-size:12px;}
+body,html{width: 100%;height:100%;background: #f0f3f4;}
+*{margin:0;padding:0;}
+ul,ol,li{ list-style:none;}
+h1,h2,h3,h4,h5,h6{ font-size:14px;}
+img,input,select,textarea{ vertical-align:middle}
+img{ border:none;}
+a{ color:#58666e; text-decoration:none;}
+.clear{ clear:both; height:0; width:0; overflow:hidden;}
+
+.query-box{
+	width: 100%;
+	height: auto;
+	min-height: 100%;
+	position: relative;
+	color: #58666e;
+}
+.query-box div.left{
+	width: 180px;
+	min-height: 100%;
+	height: auto;
+	background: #1c2b36;
+	position: absolute;
+	left:0px;
+	box-shadow: 1px 2px 5px #333;
+}
+.query-box div.right{
+	position: absolute;
+	left: 185px;
+	right: 0;
+	min-height: 100%;
+	height: auto;
+	top:0;
+	background: #fff;
+	border-sizing:border-box;
+	padding: 20px;
+	box-shadow: 1px 2px 5px #333;
+}
+.query-box div.right .right-box{
+	position: absolute;
+	bottom: 0;
+	right: 20px;
+	top:220px;
+	overflow-y: auto;
+	left:20px;
+}
+.query-box div.left .nav-left{
+	width: 100%;
+	height: 100%;
+	padding-bottom: 100px;
+}
+.query-box div.left .nav-left p{
+	padding: 0 10px 0 30px;
+	border-sizing:border-box;
+	height: 50px;
+	color: #fcfcfc;
+	line-height: 50px;
+	margin: 0;
+	cursor: pointer;
+}
+.query-box div.left .nav-left p i{
+	display: inline-block;
+	line-height: 50px;
+}
+.query-box div.left .nav-left p.cur{
+	background: #16232d;
+}
+
+.query-box div.left .nav-left ul{
+	display: none;
+}
+.query-box div.left .nav-left ul.cur{
+	display: block;
+	background: #16232d;
+}
+.query-box div.left .nav-left ul li{
+	padding: 0 10px 0 30px;
+	border-sizing:border-box;
+	height: 50px;
+	color: #fcfcfc;
+
+}
+.query-box div.left .nav-left ul li:hover{
+	background: #16232d;
+	border-right: 2px solid #ccc;
+	box-shadow: 1px 0px 4px #000; 
+}
+.query-box div.left .nav-left ul li:hover a{
+	color: #fff;
+}
+.query-box div.left .nav-left ul li.active{
+	background: #16232d;
+	border-right: 2px solid #ccc;
+	box-shadow: 1px 0px 4px #000;
+}
+.query-box div.left .nav-left ul li.active a{
+	color: #fff;
+}
+.query-box div.left .nav-left ul li a{
+	color: #7ca1bb;
+	display: block;
+	line-height: 50px;
+	text-align: left;
+	font-size: 14px;
+	width: 100%;
+	height: 100%;
+}
+.query-box div.left .nav-left .logo{
+	width: 100%;
+	height: 100px;
+	overflow: hidden;
+	padding: 30px 0 10px 0;
+}
+.query-box div.left .nav-left .logo img{
+	display: block;
+	float: left;
+	width: 80%;
+	margin-left: 10%;
+}
+.query-box div.right h4{
+	margin: 10px 30px 30px 30px;
+}
+.query-box div.right .top-box{
+	width: 100%;
+	height: auto;
+	border-bottom: 1px solid #ccc;
+}
+
+.search-box{
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+.search-box .form-box{
+	width: auto;
+	height: auto;
+	float: left;
+	margin: 5px 20px;
+	overflow: hidden;
+}
+.search-box .form-box label{
+	display: block;
+	float: left;
+	line-height: 30px;
+	padding: 0 5px;
+	min-width: 100px;
+	text-align: right;
+}
+.search-box .form-box input{
+	display: block;
+	width: 150px;
+	float: left;
+}
+.list{
+	width: 100%;
+	height: auto;	
+}
+.list li{
+	width: 100%;
+	height: auto;
+	line-height: 20px;
+}
+.list li div{
+	width: 100%;
+	line-height: 20px;
+	overflow: hidden;
+}
+.list li div span{
+	display: block;
+	float: left;
+	word-break:break-all;
+}
+.list li div span:nth-child(1){
+	width: 200px;
+	text-align: right;
+	padding: 0 10px;
+	color: #333;
+}
+.list li div span:nth-child(2){
+	font-weight: bold;
+	color: #000;
+}
+.list li div .apps{
+	margin-left:30px; 
+}
+.list li div .apps div{
+	width: 500px;
+	margin: 5px 0;
+	border-bottom: 1px solid #ccc;
+	margin-left: 167px;
+	background: #ccc;
+}
+.list li div .apps div p span:nth-child(1){
+	width: 150px;
+}
+.list li p{
+	line-height: 20px;
+	overflow: hidden;
+}
+.list li span{
+	display: block;
+	float: left;
+	word-break:break-all;
+}
+.list li span:nth-child(1){
+	width: 200px;
+	text-align: right;
+	padding: 0 10px;
+	color: #333;
+}
+.list li span:nth-child(2){
+	font-weight: bold;
+	color: #000;
+}
+.list li .inter{
+	border:1px solid #ccc;
+	overflow: hidden;
+	margin-bottom: 10px;
+}
+.list li .inter dl{
+	width: auto;
+	word-break:break-all;
+	float: left;
+	border-right: 1px solid #ccc;
+	margin: 0;
+}
+.list li .inter dl dt{
+	line-height: 20px;
+	height: 50%;
+	padding: 5px;
+	border-bottom:1px solid #ccc; 
+}
+.list li .inter dl dd{
+	line-height: 20px;
+	height: 50%;
+	padding: 5px;
+	border-bottom:1px solid #ccc;
+}
+.imagesBox{
+	margin: 20px 0;
+	background: #ccc;
+	padding: 20px;
+}
+.imagesBox li{
+	margin: 10px 0;
+}
+.imagesBox img{
+	display: block;
+	width: 280px;
+	height: 108px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

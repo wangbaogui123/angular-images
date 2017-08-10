@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div ng-controller="imagesCtr">
+        <div>
+            <label class="btn btn-default " for="upload_all_bgimg">上传背景图片</label>
+            <label class="btn btn-default " for="upload_all_img">上传图片</label>
+            <input id="upload_all_img" style="display: none;" type="file" multiple="" nv-file-select uploader="uploader" onchange="angular.element(this).scope().handle_setting_img(event)"/>		  	
+            <label for="">可以多选哦～</label>
+
+            
+            <input id="upload_all_bgimg" style="display: none;" type="file" multiple="" nv-file-select uploader="uploader" onchange="angular.element(this).scope().handle_setting_bgimg(event)"/>
+
+            <label style="margin-left:100px;background:#fff;border:1px solid #ccc;border-radius:8px;padding:5px 10px;color:lightgreen">向服务器上传图片</label>
+        </div>
+        <div>
+            <p>背景图片：{{bg.name}}</p>
+            <p>主数据：<span ng-repeat="o in images">{{o.name}}</span></p>
+        </div>
+        <div class="imagesBox" id="imagesBox">
+            <ul>	
+                    <li ng-repeat="o in images">
+                        <a ng-href="{{o.data}}" download="{{o.name}}" >
+                            <img ng-src="{{o.data}}" alt="{{o.name}}" />
+                        </a>
+                    </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <script type="text/javascript" src="libs/angular.min.js"></script>
+    <script type="text/javascript" src="libs/angular-file-upload.min.js"></script>
+    <script>
+
+        var myapp = angular.module('app',[]);
+
+        myapp.controller("imagesCtr",["$scope","$rootScope",function($scope,$rootScope){
+	
+            $scope.images = [];
+
+            var bgImg = {
+
+                img:"",
+                width:"",
+                height:""
+
+            }
+
+
+            $scope.handle_setting_bgimg=function(evt) {
+                        
+                        var files= evt.currentTarget.files;
+
+                        readAndPreview(files[0]);
+
+                        function readAndPreview(file) {
+
+                            // Make sure `file.name` matches our extensions criteria
+                            if ( /\.(jpe?g|png|gif)$/i.test(file.name) ) {
+            
+                                    var reader = new FileReader();
+                                    var img = new Image();
+                                    var width,height;
+                                    var name = file.name
+                                    var current_scale;
+                                    reader.addEventListener("load", function () {					       	
+                                            
+                                            img.src = this.result;
+                                                        
+                                            img.onload = function(){
+                                                bgImg.width = img.naturalWidth;
+                                                bgImg.height = img.naturalHeight;
+                                                bgImg.img = img;
+                                            }
+                                            $scope.$apply(function(){
+                                                $scope.bg = {
+                                                    data:this.result,
+                                                    name:name
+                                                }
+                                            })
+                                            
+                                    }, false);
+                                    
+                                    reader.readAsDataURL(file);
+                                    
+                                }
+                        }
+                        
+                    
+            }
+
+            $scope.handle_setting_img=function(evt) {
+                        
+                        var files= evt.currentTarget.files;
+
+                        function readAndPreview(file) {
+
+                            // Make sure `file.name` matches our extensions criteria
+                            if ( /\.(jpe?g|png|gif)$/i.test(file.name) ) {
+            
+                                    var reader = new FileReader();
+                                    var img = new Image();
+                                    var width,height;
+                                    var name = file.name.split(".")[0];
+                                    var current_scale;
+                                    reader.addEventListener("load", function () {					       	
+                                            
+                                            img.src = this.result;
+                                            
+                                            img.onload = function(){
+                                                width = img.width;
+                                                height = img.height;
+
+                                                var a = (width / height).toFixed(2);
+                                                var b = (bgImg.width*1 / bgImg.height*1).toFixed(2)	
+                                                
+                                                var idname = "images";
+
+                                                var canvas = document.createElement('canvas');
+                                                var canvas1 = document.createElement('canvas');
+                                                
+                                                canvas.width  = 560; 
+                                                canvas.height = 216; 
+                                            
+                                            
+
+                                                var myctx = canvas.getContext("2d");
+                                                var myctx1 = canvas1.getContext("2d");
+
+                                                canvas1.width = width;
+                                                canvas1.height = height;
+
+                                                myctx1.drawImage(img, 0, 0 , 196 , 196/a);
+
+                                                if(a > 1.2){
+                                                    myctx1.drawImage(img, 0, 0 , 196+(196-196/a) , 196);
+                                                    var clipImg = myctx1.getImageData((196-196/a)/2,0, 196, 196)
+                                                }else if(a < 0.8){
+                                                    myctx1.drawImage(img, 0, 0 , 196 , 196+(196/a-196));
+                                                    var clipImg = myctx1.getImageData(0,(196/a-196)/2, 196, 196)											
+                                                }else{
+                                                    var clipImg = myctx1.getImageData(0,0, 196, 196)
+                                                }
+                                                
+                                                myctx.drawImage(bgImg.img,0,0,560,216)
+                                                myctx.putImageData(clipImg,10,10,0,0,196,196);
+
+                                                myctx.font = "32px PingFangSC-Light";
+                                                myctx.fillText(name.split("_")[0], 240, 62);
+                                                myctx.font = "40px PingFangSC-Light";
+                                                myctx.fillText(name.split("_")[1], 240, 112);
+                                                myctx.font = "44px PingFangSC-Regular";
+                                                myctx.fillStyle = "#e27976";
+                                                myctx.fillText("立即品尝", 240, 180);
+
+
+                                                var imagenew = canvas.toDataURL("image/png");
+                                                var img1 = new Image();
+                                                img1.src = imagenew;
+                                                $scope.$apply(function(){
+                                                    $scope.images.push({
+                                                        name:name+".jpg",
+                                                        data:imagenew,
+                                                        dl_data:imagenew.replace(/^data:image\/[^;]/, 'data:application/octet-stream')
+                                                    })
+                                                })
+
+                                            }
+            
+                                            
+                                    }, false);
+                                    
+                                    reader.readAsDataURL(file);
+                                    
+                                }
+                        }
+
+                        if (files) {
+                            [].forEach.call(files , readAndPreview);
+                        } 
+                        
+                    
+            }
+                    
+                        
+
+
+        }])
+    </script>
+</body>
+</html>
