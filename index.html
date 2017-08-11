@@ -10,8 +10,8 @@
 </head>
 <body>
     
-    <div ng-controller="imagesCtr">
-        <div>
+    <div ng-controller="imagesCtr" class="box">
+        <div style="height:30px;">
             <label class="btn btn-default " for="upload_all_bgimg">上传背景图片</label>
             <label class="btn btn-default " for="upload_all_img">上传图片</label>
             <input id="upload_all_img" style="display: none;" type="file" multiple="" nv-file-select uploader="uploader" onchange="angular.element(this).scope().handle_setting_img(event)"/>		  	
